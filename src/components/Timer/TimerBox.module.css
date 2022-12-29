@@ -1,0 +1,41 @@
+.timerBox {
+  padding: 1.5rem;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-1);
+  gap: 2rem;
+}
+.timer {
+  font-size: 7rem;
+}
+.timerBtn {
+  background-color: var(--color-white);
+  mix-blend-mode: screen;
+  color: black;
+  padding: 1rem 4rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.timerTabs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.tab {
+  user-select: none;
+  padding: 8px 16px;
+  text-align: center;
+}
+.tab--active {
+  font-weight: bold;
+  background-color: var(--color-grey-1);
+  border-radius: 5px;
+}

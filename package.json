@@ -2,7 +2,7 @@
   "name": "pomodoro",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://itsramin.github.io/todo-react",
+  "homepage": "https://itsramin.github.io/pomodoro",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",

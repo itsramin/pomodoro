@@ -1,3 +1,15 @@
 .App {
-  background-color: #f3f2f1;
+  background-color: var(--color-red-1);
+  height: 100vh;
+  transition: all 1s;
+}
+.cyan {
+  background-color: var(--color-cyan-1);
+}
+.blue {
+  background-color: var(--color-blue-1);
+}
+main {
+  max-width: 600px;
+  margin: 0 auto;
 }
