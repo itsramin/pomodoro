@@ -37,7 +37,7 @@ const Settings = () => {
   };
   return (
     <Modal closeModal={closeModalHandler}>
-      <header>
+      <header className={styles["header"]}>
         <h2>Settings</h2>
         <MdClose className={styles["iconClose"]} onClick={closeModalHandler} />
       </header>

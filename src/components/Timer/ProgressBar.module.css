@@ -1,0 +1,7 @@
+.outer {
+  transform: translateY(-2px);
+}
+.inner {
+  background-color: white;
+  height: 3px;
+}

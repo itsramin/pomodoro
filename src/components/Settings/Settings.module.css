@@ -1,4 +1,4 @@
-header {
+.header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -8,7 +8,7 @@ header {
   margin-bottom: 10px;
 }
 
-h2 {
+.header h2 {
   color: var(--color-text-2);
 }
 .iconClose {

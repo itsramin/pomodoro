@@ -9,6 +9,7 @@
   align-items: center;
   color: var(--color-text-1);
   gap: 2rem;
+  margin-top: 2rem;
 }
 .timer {
   font-size: 7rem;

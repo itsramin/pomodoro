@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import ProgressBar from "./ProgressBar";
 import styles from "./TimerBox.module.css";
 
 const TimerBox = ({ onChangeTab }) => {
@@ -57,29 +58,34 @@ const TimerBox = ({ onChangeTab }) => {
   };
 
   const timerNum = new Date(timer * 1000).toISOString().slice(14, 19);
+  const progress =
+    (tabs[activeTab].time * 60 - timer) / (tabs[activeTab].time * 60);
 
   return (
-    <div className={styles.timerBox}>
-      <div className={styles.timerTabs}>
-        {tabs.map((tab, i) => {
-          return (
-            <div
-              className={`${styles.tab} ${
-                activeTab === i && styles["tab--active"]
-              }`}
-              onClick={changeTabHandler.bind(null, i)}
-              key={tab.name}
-            >
-              {tab.name}
-            </div>
-          );
-        })}
+    <>
+      <ProgressBar percentage={progress} />
+      <div className={styles.timerBox}>
+        <div className={styles.timerTabs}>
+          {tabs.map((tab, i) => {
+            return (
+              <div
+                className={`${styles.tab} ${
+                  activeTab === i && styles["tab--active"]
+                }`}
+                onClick={changeTabHandler.bind(null, i)}
+                key={tab.name}
+              >
+                {tab.name}
+              </div>
+            );
+          })}
+        </div>
+        <div className={styles.timer}>{timerNum}</div>
+        <div className={styles.timerBtn} onClick={startHandler}>
+          {running ? "Stop" : "Start"}
+        </div>
       </div>
-      <div className={styles.timer}>{timerNum}</div>
-      <div className={styles.timerBtn} onClick={startHandler}>
-        {running ? "Stop" : "Start"}
-      </div>
-    </div>
+    </>
   );
 };
 
