@@ -13,7 +13,11 @@ const MainHeader = () => {
     <header className={styles.header}>
       <div className={styles.logo}>Pomodoro</div>
       <div className={styles.nav}>
-        <PrimaryButton title="Settings" onClick={settingsHandler} />
+        <PrimaryButton
+          title="Settings"
+          onClick={settingsHandler}
+          icon="settings"
+        />
       </div>
     </header>
   );

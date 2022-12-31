@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { settingsActions } from "../../store/settingSlice";
 import { uiActions } from "../../store/uiSlice";
@@ -38,6 +39,7 @@ const Settings = () => {
     <Modal closeModal={closeModalHandler}>
       <header>
         <h2>Settings</h2>
+        <MdClose className={styles["iconClose"]} onClick={closeModalHandler} />
       </header>
       <div className={styles["optionBox"]}>
         <div className={styles["title"]}>Time (min)</div>

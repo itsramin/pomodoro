@@ -1,8 +1,17 @@
 .btn {
-  padding: 5px 16px;
+  padding: 8px 10px;
   background-color: var(--color-white-2);
   color: var(--color-text-1);
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.icon {
+  margin-right: 5px;
+}
+.title {
+  font-size: 0.9rem;
 }
