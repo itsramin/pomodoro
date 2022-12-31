@@ -1,5 +1,5 @@
 .header {
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   color: var(--color-text-1);
@@ -11,6 +11,12 @@
 }
 .logo {
   font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.icon {
+  margin-right: 4px;
 }
 .nav {
   display: flex;

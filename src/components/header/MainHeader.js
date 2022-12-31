@@ -1,3 +1,4 @@
+import { MdAccessTimeFilled } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../store/uiSlice";
 import PrimaryButton from "../UI/PrimaryButton";
@@ -11,7 +12,10 @@ const MainHeader = () => {
   };
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>Pomodoro</div>
+      <div className={styles.logo}>
+        <MdAccessTimeFilled className={styles.icon} />
+        Pomodoro
+      </div>
       <div className={styles.nav}>
         <PrimaryButton
           title="Settings"

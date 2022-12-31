@@ -1,7 +1,7 @@
 .App {
   background-color: var(--color-red-1);
   height: 100vh;
-  transition: all 1s;
+  transition: background-color 1s;
 }
 .cyan {
   background-color: var(--color-cyan-1);
