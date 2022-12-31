@@ -1,0 +1,8 @@
+.btn {
+  padding: 5px 16px;
+  background-color: var(--color-white-2);
+  color: var(--color-text-1);
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}

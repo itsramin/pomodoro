@@ -3,6 +3,11 @@
   --color-red-1: #ba4949;
   --color-cyan-1: #38858a;
   --color-text-1: #fff;
+  --color-text-2: #999;
+  --color-text-3: #444;
   --color-white: #fff;
+  --color-white-2: rgba(255, 255, 255, 0.1);
   --color-grey-1: rgba(0, 0, 0, 0.1);
+  --color-grey-2: #eee;
+  --color-grey-3: #444;
 }

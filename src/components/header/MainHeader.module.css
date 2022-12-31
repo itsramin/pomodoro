@@ -4,4 +4,17 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   color: var(--color-text-1);
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-weight: bold;
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }

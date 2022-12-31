@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./TimerBox.module.css";
 
 const TimerBox = ({ onChangeTab }) => {
@@ -6,19 +7,21 @@ const TimerBox = ({ onChangeTab }) => {
   const [running, setRunning] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [shortBreakCount, setShortBreakCount] = useState(0);
+  const settingsSlice = useSelector((state) => state.settings);
+
   const tabs = useMemo(() => {
     return [
-      { name: "Pomodoro", time: 25 },
-      { name: "Short Break", time: 5 },
-      { name: "Long Break", time: 15 },
+      { name: "Pomodoro", time: +settingsSlice.pomodoro },
+      { name: "Short Break", time: +settingsSlice.shortBreak },
+      { name: "Long Break", time: +settingsSlice.longBreak },
     ];
-  }, []);
+  }, [settingsSlice]);
 
   const changeTabHandler = useCallback(
     (tabNum) => {
       setActiveTab(tabNum);
       onChangeTab(tabNum);
-
+      setRunning(false);
       setTimer(tabs[tabNum].time * 60);
     },
     [onChangeTab, tabs]
