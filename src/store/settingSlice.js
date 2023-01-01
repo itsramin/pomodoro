@@ -6,6 +6,7 @@ const initialState = {
   longBreak: 15,
   longBreakInterval: 3,
   autoStart: false,
+  muteNotif: false,
 };
 
 const settingsSlice = createSlice({

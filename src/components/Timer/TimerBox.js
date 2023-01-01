@@ -9,11 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../store/uiSlice";
 import ProgressBar from "./ProgressBar";
 import styles from "./TimerBox.module.css";
+import notif from "../../media/notif.wav";
 
 const TimerBox = () => {
   const dispatch = useDispatch();
   const uiSlice = useSelector((state) => state.ui);
   const settingsSlice = useSelector((state) => state.settings);
+
+  const notifAudio = useMemo(() => new Audio(notif), []);
 
   const [running, setRunning] = useState(false);
   const [activeTab, setActiveTab] = useState(uiSlice.currentTab);
@@ -56,6 +59,9 @@ const TimerBox = () => {
       clearInterval(interval);
       setRunning(false);
       setShortBreakCount((prev) => prev + 1);
+      if (!settingsSlice.muteNotif) {
+        notifAudio.play();
+      }
 
       if (shortBreakCount !== settingsSlice.longBreakInterval) {
         changeTabHandler(1);
@@ -68,7 +74,14 @@ const TimerBox = () => {
       }
     }
     return () => clearInterval(interval);
-  }, [running, timer, shortBreakCount, changeTabHandler, settingsSlice]);
+  }, [
+    running,
+    timer,
+    shortBreakCount,
+    changeTabHandler,
+    settingsSlice,
+    notifAudio,
+  ]);
 
   const startHandler = () => {
     setRunning((prev) => !prev);

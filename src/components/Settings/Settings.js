@@ -6,6 +6,7 @@ import { uiActions } from "../../store/uiSlice";
 import Modal from "../UI/Modal";
 import AutoStart from "./AutoStartBreak";
 import LongBreakInterval from "./LongBreakInterval";
+import MuteNotif from "./MuteNotif";
 import "./Settings.css";
 import Timers from "./Timers";
 
@@ -21,6 +22,7 @@ const Settings = () => {
   );
 
   const [autoStart, setAutoStart] = useState(settingsState.autoStart);
+  const [muteNotif, setMuteNotif] = useState(settingsState.muteNotif);
 
   const closeModalHandler = () => {
     dispatch(uiActions.toggleSettings());
@@ -40,6 +42,9 @@ const Settings = () => {
   const autoStartChangeHandler = () => {
     setAutoStart((prev) => !prev);
   };
+  const muteNotifChangeHandler = () => {
+    setMuteNotif((prev) => !prev);
+  };
 
   const saveHandler = () => {
     if (pomodoro < 1 || pomodoro > 59) {
@@ -52,6 +57,7 @@ const Settings = () => {
         longBreak,
         longBreakInterval,
         autoStart,
+        muteNotif,
       })
     );
     closeModalHandler();
@@ -80,7 +86,7 @@ const Settings = () => {
         longBreakInterval={longBreakInterval}
       />
       <AutoStart onChange={autoStartChangeHandler} isTrue={autoStart} />
-
+      <MuteNotif onChange={muteNotifChangeHandler} isTrue={muteNotif} />
       <div className={"settings__buttons"}>
         <div className={"settings__button--save"} onClick={saveHandler}>
           Save
