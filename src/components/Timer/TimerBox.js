@@ -118,7 +118,7 @@ const TimerBox = () => {
             {running ? <MdPause /> : <MdPlayArrow />}
             {running ? "Pause" : "Start"}
           </div>
-          {running && (
+          {running && activeTab === 0 && (
             <div className={styles["btn"]} onClick={finishHandler}>
               <MdFlag /> Finish
             </div>

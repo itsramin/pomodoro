@@ -26,7 +26,8 @@
   background-color: var(--color-white);
   mix-blend-mode: screen;
   color: black;
-  padding: 1rem 3rem 1rem 2.5rem;
+  padding: 1rem 3rem 1rem 2rem;
+  width: 190px;
   border-radius: 5px;
   font-weight: bold;
   font-size: 1.5rem;
@@ -79,6 +80,7 @@
   .btn {
     padding: 0.6rem 1.5rem 0.6rem 1rem;
     font-size: 1.1rem;
+    width: auto;
   }
 }
 @media (max-width: 330px) {
