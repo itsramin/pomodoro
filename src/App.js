@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import "./App.css";
 import MainHeader from "./components/header/MainHeader";
@@ -7,19 +6,16 @@ import TimerBox from "./components/Timer/TimerBox";
 import "./components/UI/Allcolors.css";
 
 function App() {
-  const [tab, setTab] = useState(0);
-  const changeTabHandler = (num) => {
-    setTab(num);
-  };
-
   const ui = useSelector((state) => state.ui);
 
-  const appClass = `${"App"} ${tab === 1 && "cyan"} ${tab === 2 && "blue"}`;
+  const appClass = `${"App"} ${ui.currentTab === 1 && "cyan"} ${
+    ui.currentTab === 2 && "blue"
+  }`;
   return (
     <div className={appClass}>
       <main>
         <MainHeader />
-        <TimerBox onChangeTab={changeTabHandler} />
+        <TimerBox />
         {ui.settingsVisible && <Settings />}
       </main>
     </div>

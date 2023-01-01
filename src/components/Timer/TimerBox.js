@@ -1,14 +1,24 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { uiActions } from "../../store/uiSlice";
 import ProgressBar from "./ProgressBar";
 import styles from "./TimerBox.module.css";
 
-const TimerBox = ({ onChangeTab }) => {
-  const [timer, setTimer] = useState(0.1 * 60);
-  const [running, setRunning] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
-  const [shortBreakCount, setShortBreakCount] = useState(0);
+const TimerBox = () => {
+  const dispatch = useDispatch();
+  const uiSlice = useSelector((state) => state.ui);
   const settingsSlice = useSelector((state) => state.settings);
+
+  const [running, setRunning] = useState(false);
+  const [activeTab, setActiveTab] = useState(uiSlice.currentTab);
+  const [shortBreakCount, setShortBreakCount] = useState(0);
+  const [timer, setTimer] = useState(60 * 25);
 
   const tabs = useMemo(() => {
     return [
@@ -18,14 +28,18 @@ const TimerBox = ({ onChangeTab }) => {
     ];
   }, [settingsSlice]);
 
+  useLayoutEffect(() => {
+    setTimer(tabs[activeTab].time * 60);
+  }, [settingsSlice, tabs, activeTab]);
+
   const changeTabHandler = useCallback(
     (tabNum) => {
       setActiveTab(tabNum);
-      onChangeTab(tabNum);
+      dispatch(uiActions.changeTab(tabNum));
       setRunning(false);
       setTimer(tabs[tabNum].time * 60);
     },
-    [onChangeTab, tabs]
+    [tabs, dispatch]
   );
 
   useEffect(() => {
@@ -58,8 +72,10 @@ const TimerBox = ({ onChangeTab }) => {
   };
 
   const timerNum = new Date(timer * 1000).toISOString().slice(14, 19);
-  const progress =
-    (tabs[activeTab].time * 60 - timer) / (tabs[activeTab].time * 60);
+
+  const progress = running
+    ? (tabs[activeTab].time * 60 - timer) / (tabs[activeTab].time * 60)
+    : 0;
 
   return (
     <>

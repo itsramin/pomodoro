@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   settingsVisible: false,
+  currentTab: 0,
 };
 
 const uiSlice = createSlice({
@@ -10,6 +11,9 @@ const uiSlice = createSlice({
   reducers: {
     toggleSettings(state) {
       state.settingsVisible = !state.settingsVisible;
+    },
+    changeTab(state, action) {
+      state.currentTab = action.payload;
     },
   },
 });
