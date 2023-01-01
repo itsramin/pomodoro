@@ -18,9 +18,7 @@
 .settings__icon--close:hover {
   color: var(--color-text-3);
 }
-.settings__options {
-  /* overflow-y: scroll; */
-}
+
 .option__box {
   padding: 15px 0;
 }
@@ -136,13 +134,16 @@ input:checked + .input__switch--slider:before {
 }
 @media (max-width: 430px) {
   .option__input--number {
-    width: 60px;
+    width: 100%;
+    max-width: 90px;
+    padding: 7px;
   }
   .option__title {
     color: var(--color-text-3);
     font-size: 0.9rem;
     margin: 10px 0;
     font-weight: bold;
+    width: 100%;
   }
   .option__label {
     font-size: 0.8rem;
@@ -150,10 +151,16 @@ input:checked + .input__switch--slider:before {
   .settings__header h2 {
     font-size: 1.2rem;
   }
+  .option__box {
+    padding: 10px 0;
+  }
+  .option__row {
+    gap: 10px;
+  }
 
   /* switch */
   .input__switch {
-    width: 40px;
+    width: 48px;
     height: 24px;
   }
 

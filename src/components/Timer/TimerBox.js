@@ -38,12 +38,14 @@ const TimerBox = () => {
 
   const changeTabHandler = useCallback(
     (tabNum) => {
-      setActiveTab(tabNum);
-      dispatch(uiActions.changeTab(tabNum));
-      setRunning(false);
-      setTimer(tabs[tabNum].time * 60);
+      if (tabNum !== activeTab) {
+        setActiveTab(tabNum);
+        dispatch(uiActions.changeTab(tabNum));
+        setRunning(false);
+        setTimer(tabs[tabNum].time * 60);
+      }
     },
-    [tabs, dispatch]
+    [tabs, dispatch, activeTab]
   );
 
   const finishHandler = useCallback(() => {
