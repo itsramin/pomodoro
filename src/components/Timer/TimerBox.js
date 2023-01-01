@@ -10,6 +10,7 @@ import { uiActions } from "../../store/uiSlice";
 import ProgressBar from "./ProgressBar";
 import styles from "./TimerBox.module.css";
 import notif from "../../media/notif.wav";
+import { MdFlag, MdPause, MdPlayArrow } from "react-icons/md";
 
 const TimerBox = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,24 @@ const TimerBox = () => {
     [tabs, dispatch]
   );
 
+  const finishHandler = useCallback(() => {
+    setRunning(false);
+    setShortBreakCount((prev) => prev + 1);
+    if (!settingsSlice.muteNotif) {
+      notifAudio.play();
+    }
+
+    if (shortBreakCount !== settingsSlice.longBreakInterval) {
+      changeTabHandler(1);
+    } else {
+      changeTabHandler(2);
+      setShortBreakCount(0);
+    }
+    if (settingsSlice.autoStart) {
+      setRunning(true);
+    }
+  }, [shortBreakCount, settingsSlice, notifAudio, changeTabHandler]);
+
   useEffect(() => {
     let interval;
     if (running) {
@@ -57,31 +76,10 @@ const TimerBox = () => {
 
     if (timer === 0) {
       clearInterval(interval);
-      setRunning(false);
-      setShortBreakCount((prev) => prev + 1);
-      if (!settingsSlice.muteNotif) {
-        notifAudio.play();
-      }
-
-      if (shortBreakCount !== settingsSlice.longBreakInterval) {
-        changeTabHandler(1);
-      } else {
-        changeTabHandler(2);
-        setShortBreakCount(0);
-      }
-      if (settingsSlice.autoStart) {
-        setRunning(true);
-      }
+      finishHandler();
     }
     return () => clearInterval(interval);
-  }, [
-    running,
-    timer,
-    shortBreakCount,
-    changeTabHandler,
-    settingsSlice,
-    notifAudio,
-  ]);
+  }, [running, timer, finishHandler]);
 
   const startHandler = () => {
     setRunning((prev) => !prev);
@@ -113,8 +111,16 @@ const TimerBox = () => {
           })}
         </div>
         <div className={styles.timer}>{timerNum}</div>
-        <div className={styles.timerBtn} onClick={startHandler}>
-          {running ? "Stop" : "Start"}
+        <div className={styles.buttons}>
+          <div className={styles["btn"]} onClick={startHandler}>
+            {running ? <MdPause /> : <MdPlayArrow />}
+            {running ? "Pause" : "Start"}
+          </div>
+          {running && (
+            <div className={styles["btn"]} onClick={finishHandler}>
+              <MdFlag /> Finish
+            </div>
+          )}
         </div>
       </div>
     </>
