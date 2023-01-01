@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { settingsActions } from "../../store/settingSlice";
 import { uiActions } from "../../store/uiSlice";
 import Modal from "../UI/Modal";
-import styles from "./Settings.module.css";
+import AutoStart from "./AutoStartBreak";
+import LongBreakInterval from "./LongBreakInterval";
+import "./Settings.css";
+import Timers from "./Timers";
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -16,6 +19,8 @@ const Settings = () => {
   const [longBreakInterval, setLongBreakInterval] = useState(
     settingsState.longBreakInterval
   );
+
+  const [autoStart, setAutoStart] = useState(settingsState.autoStart);
 
   const closeModalHandler = () => {
     dispatch(uiActions.toggleSettings());
@@ -32,6 +37,9 @@ const Settings = () => {
   const longBreakIntervalChangeHandler = (e) => {
     setLongBreakInterval(e.target.value);
   };
+  const autoStartChangeHandler = () => {
+    setAutoStart((prev) => !prev);
+  };
 
   const saveHandler = () => {
     if (pomodoro < 1 || pomodoro > 59) {
@@ -43,72 +51,38 @@ const Settings = () => {
         shortBreak,
         longBreak,
         longBreakInterval,
+        autoStart,
       })
     );
     closeModalHandler();
   };
   return (
     <Modal closeModal={closeModalHandler}>
-      <header className={styles["header"]}>
+      <header className={"settings__header"}>
         <h2>Settings</h2>
-        <MdClose className={styles["iconClose"]} onClick={closeModalHandler} />
+        <MdClose
+          className={"settings__icon--close"}
+          onClick={closeModalHandler}
+        />
       </header>
 
-      <section className={styles["optionBox"]}>
-        <div className={styles["title"]}>Time (min)</div>
-        <div className={styles["row"]}>
-          <div className={styles["option-control"]}>
-            <div className={styles["label"]}>Pomodoro</div>
-            <input
-              type="number"
-              min={1}
-              max={59}
-              value={pomodoro}
-              onChange={pomodoroChangeHandler}
-              className={styles["input"]}
-            />
-          </div>
-          <div className={styles["option-control"]}>
-            <div className={styles["label"]}>Short Break</div>
-            <input
-              type="number"
-              min={1}
-              max={59}
-              value={shortBreak}
-              onChange={sBreakChangeHandler}
-              className={styles["input"]}
-            />
-          </div>
-          <div className={styles["option-control"]}>
-            <div className={styles["label"]}>Long Break</div>
-            <input
-              type="number"
-              min={1}
-              max={59}
-              value={longBreak}
-              onChange={lBreakChangeHandler}
-              className={styles["input"]}
-            />
-          </div>
-        </div>
-      </section>
+      <Timers
+        pomodoro={pomodoro}
+        onChangePomodoro={pomodoroChangeHandler}
+        shortBreak={shortBreak}
+        longBreak={longBreak}
+        onChangeShortBreak={sBreakChangeHandler}
+        onChangeLongBreak={lBreakChangeHandler}
+      />
 
-      <section className={styles["optionBox"]}>
-        <div className={styles["row"]}>
-          <div className={styles["title"]}>Long Break interval</div>
-          <input
-            type="number"
-            min={1}
-            max={99}
-            value={longBreakInterval}
-            onChange={longBreakIntervalChangeHandler}
-            className={styles["input"]}
-          />
-        </div>
-      </section>
-      <section className={styles["optionBox"]}></section>
-      <div className={styles["buttons"]}>
-        <div className={styles["saveBtn"]} onClick={saveHandler}>
+      <LongBreakInterval
+        onChange={longBreakIntervalChangeHandler}
+        longBreakInterval={longBreakInterval}
+      />
+      <AutoStart onChange={autoStartChangeHandler} isTrue={autoStart} />
+
+      <div className={"settings__buttons"}>
+        <div className={"settings__button--save"} onClick={saveHandler}>
           Save
         </div>
       </div>

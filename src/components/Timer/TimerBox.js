@@ -63,6 +63,9 @@ const TimerBox = () => {
         changeTabHandler(2);
         setShortBreakCount(0);
       }
+      if (settingsSlice.autoStart) {
+        setRunning(true);
+      }
     }
     return () => clearInterval(interval);
   }, [running, timer, shortBreakCount, changeTabHandler, settingsSlice]);

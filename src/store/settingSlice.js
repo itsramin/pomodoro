@@ -5,6 +5,7 @@ const initialState = {
   shortBreak: 5,
   longBreak: 15,
   longBreakInterval: 3,
+  autoStart: false,
 };
 
 const settingsSlice = createSlice({
