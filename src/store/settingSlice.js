@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { pomodoro: 25, shortBreak: 5, longBreak: 15 };
+const initialState = {
+  pomodoro: 25,
+  shortBreak: 5,
+  longBreak: 15,
+  longBreakInterval: 3,
+};
 
 const settingsSlice = createSlice({
   name: "settings",

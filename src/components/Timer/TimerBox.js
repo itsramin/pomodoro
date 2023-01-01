@@ -57,7 +57,7 @@ const TimerBox = () => {
       setRunning(false);
       setShortBreakCount((prev) => prev + 1);
 
-      if (shortBreakCount !== 3) {
+      if (shortBreakCount !== settingsSlice.longBreakInterval) {
         changeTabHandler(1);
       } else {
         changeTabHandler(2);
@@ -65,7 +65,7 @@ const TimerBox = () => {
       }
     }
     return () => clearInterval(interval);
-  }, [running, timer, shortBreakCount, changeTabHandler]);
+  }, [running, timer, shortBreakCount, changeTabHandler, settingsSlice]);
 
   const startHandler = () => {
     setRunning((prev) => !prev);

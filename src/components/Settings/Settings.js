@@ -13,26 +13,38 @@ const Settings = () => {
   const [pomodoro, setPomodoro] = useState(settingsState.pomodoro);
   const [shortBreak, setShortBreak] = useState(settingsState.shortBreak);
   const [longBreak, setLongBreak] = useState(settingsState.longBreak);
+  const [longBreakInterval, setLongBreakInterval] = useState(
+    settingsState.longBreakInterval
+  );
 
   const closeModalHandler = () => {
     dispatch(uiActions.toggleSettings());
   };
-
-  const pomodoroChangeHandler = (value) => {
-    setPomodoro(value.target.value);
+  const pomodoroChangeHandler = (e) => {
+    setPomodoro(e.target.value);
   };
-  const sBreakChangeHandler = (value) => {
-    setShortBreak(value.target.value);
+  const sBreakChangeHandler = (e) => {
+    setShortBreak(e.target.value);
   };
-  const lBreakChangeHandler = (value) => {
-    setLongBreak(value.target.value);
+  const lBreakChangeHandler = (e) => {
+    setLongBreak(e.target.value);
+  };
+  const longBreakIntervalChangeHandler = (e) => {
+    setLongBreakInterval(e.target.value);
   };
 
   const saveHandler = () => {
     if (pomodoro < 1 || pomodoro > 59) {
       return;
     }
-    dispatch(settingsActions.change({ pomodoro, shortBreak, longBreak }));
+    dispatch(
+      settingsActions.change({
+        pomodoro,
+        shortBreak,
+        longBreak,
+        longBreakInterval,
+      })
+    );
     closeModalHandler();
   };
   return (
@@ -41,7 +53,8 @@ const Settings = () => {
         <h2>Settings</h2>
         <MdClose className={styles["iconClose"]} onClick={closeModalHandler} />
       </header>
-      <div className={styles["optionBox"]}>
+
+      <section className={styles["optionBox"]}>
         <div className={styles["title"]}>Time (min)</div>
         <div className={styles["row"]}>
           <div className={styles["option-control"]}>
@@ -78,7 +91,22 @@ const Settings = () => {
             />
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className={styles["optionBox"]}>
+        <div className={styles["row"]}>
+          <div className={styles["title"]}>Long Break interval</div>
+          <input
+            type="number"
+            min={1}
+            max={99}
+            value={longBreakInterval}
+            onChange={longBreakIntervalChangeHandler}
+            className={styles["input"]}
+          />
+        </div>
+      </section>
+      <section className={styles["optionBox"]}></section>
       <div className={styles["buttons"]}>
         <div className={styles["saveBtn"]} onClick={saveHandler}>
           Save
