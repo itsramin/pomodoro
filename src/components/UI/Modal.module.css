@@ -31,10 +31,10 @@
 @keyframes slide-down {
   from {
     opacity: 0;
-    transform: translate(-50%, -4rem);
+    transform: translate(-50%, 0);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, calc(-50% - 0.5px));
   }
 }
