@@ -1,6 +1,6 @@
 .timerBox {
   padding: 1.5rem;
-  width: 80%;
+  /* width: 80%; */
   margin: 0 auto;
   border-radius: 10px;
   background-color: var(--color-white-2);
@@ -55,4 +55,37 @@
   font-weight: bold;
   background-color: var(--color-grey-1);
   border-radius: 5px;
+}
+@media (max-width: 600px) {
+  .timerBox {
+    padding: 1rem;
+    margin-top: 1rem;
+    gap: 1.5rem;
+  }
+  .timerTabs {
+    gap: 0.5rem;
+  }
+}
+@media (max-width: 470px) {
+  .timerBox {
+    gap: 1rem;
+  }
+  .timerTabs {
+    flex-direction: column;
+  }
+  .timer {
+    font-size: 5rem;
+  }
+  .btn {
+    padding: 0.6rem 1.5rem 0.6rem 1rem;
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 330px) {
+  .timer {
+    font-size: 4rem;
+  }
+  .buttons {
+    flex-direction: column;
+  }
 }

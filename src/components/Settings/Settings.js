@@ -72,21 +72,24 @@ const Settings = () => {
         />
       </header>
 
-      <Timers
-        pomodoro={pomodoro}
-        onChangePomodoro={pomodoroChangeHandler}
-        shortBreak={shortBreak}
-        longBreak={longBreak}
-        onChangeShortBreak={sBreakChangeHandler}
-        onChangeLongBreak={lBreakChangeHandler}
-      />
+      <div className={"settings__options"}>
+        <Timers
+          pomodoro={pomodoro}
+          onChangePomodoro={pomodoroChangeHandler}
+          shortBreak={shortBreak}
+          longBreak={longBreak}
+          onChangeShortBreak={sBreakChangeHandler}
+          onChangeLongBreak={lBreakChangeHandler}
+        />
 
-      <LongBreakInterval
-        onChange={longBreakIntervalChangeHandler}
-        longBreakInterval={longBreakInterval}
-      />
-      <AutoStart onChange={autoStartChangeHandler} isTrue={autoStart} />
-      <MuteNotif onChange={muteNotifChangeHandler} isTrue={muteNotif} />
+        <LongBreakInterval
+          onChange={longBreakIntervalChangeHandler}
+          longBreakInterval={longBreakInterval}
+        />
+        <AutoStart onChange={autoStartChangeHandler} isTrue={autoStart} />
+        <MuteNotif onChange={muteNotifChangeHandler} isTrue={muteNotif} />
+      </div>
+
       <div className={"settings__buttons"}>
         <div className={"settings__button--save"} onClick={saveHandler}>
           Save

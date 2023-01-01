@@ -13,7 +13,10 @@
   top: 50%;
   left: 50%;
   width: 400px;
-  background-color: white;
+  /* height: 300px; */
+  /* max-height: 100vh; */
+
+  background-color: var(--color-white);
   padding: 1.5rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -21,10 +24,13 @@
   animation: slide-down 300ms ease-out forwards;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 430px) {
   .modal {
-    /* width: 40rem;
-    left: calc(50% - 20rem); */
+    width: 95%;
+    max-height: 90%;
+    overflow-y: scroll;
+    padding: 1rem;
+    border-radius: 5px;
   }
 }
 

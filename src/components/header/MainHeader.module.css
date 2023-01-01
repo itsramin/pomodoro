@@ -2,7 +2,7 @@
   padding: 1rem 0;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   color: var(--color-text-1);
-  /* margin-bottom: 2rem; */
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,4 +23,9 @@
   flex-direction: row;
   align-items: center;
   gap: 1rem;
+}
+@media (max-width: 500px) {
+  .header {
+    padding: 0.6rem 0;
+  }
 }

@@ -5,9 +5,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
-::-webkit-scrollbar {
-  width: 15px;
+/* ::-webkit-scrollbar {
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: #f3f2f1;
@@ -16,7 +17,7 @@ body {
   background-color: #ccc;
   border-radius: 60px;
   border: 5px solid #f3f2f1;
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
