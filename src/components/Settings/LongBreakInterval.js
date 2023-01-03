@@ -6,7 +6,6 @@ const LongBreakInterval = ({ longBreakInterval, onChange }) => {
         <input
           type="number"
           min={1}
-          max={99}
           value={longBreakInterval}
           onChange={onChange}
           className={"option__input--number"}

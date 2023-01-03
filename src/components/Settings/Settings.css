@@ -36,6 +36,7 @@
 .option-control {
   width: 100%;
 }
+
 .option__label {
   color: var(--color-text-2);
   margin-bottom: 5px;
@@ -47,8 +48,12 @@
   border: none;
   padding: 10px;
   border-radius: 5px;
-  width: 100px;
+  width: 100%;
+  max-width: 107px;
   color: var(--color-text-3);
+}
+.option-control .option__input--number {
+  max-width: none;
 }
 .option__row {
   display: flex;
@@ -61,6 +66,7 @@
   margin-top: 1rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .settings__button--save {
   padding: 10px 1.5rem;
@@ -70,6 +76,13 @@
   border-radius: 5px;
   user-select: none;
   cursor: pointer;
+}
+.settings__error {
+  color: var(--color-red-1);
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-right: 10px;
 }
 
 /* switch */
@@ -134,8 +147,7 @@ input:checked + .input__switch--slider:before {
 }
 @media (max-width: 430px) {
   .option__input--number {
-    width: 100%;
-    max-width: 90px;
+    /* max-width: 80px; */
     padding: 7px;
   }
   .option__title {

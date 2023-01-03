@@ -23,20 +23,25 @@ const Settings = () => {
 
   const [autoStart, setAutoStart] = useState(settingsState.autoStart);
   const [muteNotif, setMuteNotif] = useState(settingsState.muteNotif);
+  const [error, setError] = useState(false);
 
   const closeModalHandler = () => {
     dispatch(uiActions.toggleSettings());
   };
   const pomodoroChangeHandler = (e) => {
+    setError(false);
     setPomodoro(e.target.value);
   };
   const sBreakChangeHandler = (e) => {
+    setError(false);
     setShortBreak(e.target.value);
   };
   const lBreakChangeHandler = (e) => {
+    setError(false);
     setLongBreak(e.target.value);
   };
   const longBreakIntervalChangeHandler = (e) => {
+    setError(false);
     setLongBreakInterval(e.target.value);
   };
   const autoStartChangeHandler = () => {
@@ -47,8 +52,18 @@ const Settings = () => {
   };
 
   const saveHandler = () => {
-    if (pomodoro < 1 || pomodoro > 59) {
-      return;
+    if (longBreakInterval < 1) {
+      return setError("Long Break Intervalmust be a number greater than 1.");
+    }
+    if (
+      pomodoro < 1 ||
+      pomodoro > 59 ||
+      shortBreak < 1 ||
+      shortBreak > 59 ||
+      longBreak < 1 ||
+      longBreak > 59
+    ) {
+      return setError("Times must be a number between 1 and 59.");
     }
     dispatch(
       settingsActions.change({
@@ -91,6 +106,7 @@ const Settings = () => {
       </div>
 
       <div className={"settings__buttons"}>
+        {error && <div className={"settings__error"}>{error}</div>}
         <div className={"settings__button--save"} onClick={saveHandler}>
           Save
         </div>
