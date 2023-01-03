@@ -18,25 +18,25 @@ const TimerBox = () => {
 
   const tabs = useMemo(() => {
     return [
-      { name: "Pomodoro", time: +settingsSlice.pomodoro },
-      { name: "Short Break", time: 0.1 },
-      // { name: "Short Break", time: +settingsSlice.shortBreak },
-      { name: "Long Break", time: +settingsSlice.longBreak },
+      { name: "Pomodoro", time: +settingsSlice.pomodoro * 60 },
+      // { name: "Short Break", time: 0.1 },
+      { name: "Short Break", time: +settingsSlice.shortBreak * 60 },
+      { name: "Long Break", time: +settingsSlice.longBreak * 60 },
     ];
   }, [settingsSlice]);
 
   const { time, start, pause, reset, status } = useTimer({
-    // initialTime: uiSlice.curTime ? uiSlice.curTime : 0,
-    // onTimeUpdate: () => {
-    //   dispatch(uiActions.setCurTime(time));
-    // },
+    initialTime: uiSlice.curTime,
+    onTimeUpdate: () => {
+      dispatch(uiActions.setCurTime(time));
+    },
   });
 
   const changeTabHandler = useCallback(
     (tabNum) => {
       if (tabNum !== activeTab) {
         reset();
-        // dispatch(uiActions.setCurTime(0));
+        dispatch(uiActions.setCurTime(0));
 
         setActiveTab(tabNum);
         dispatch(uiActions.changeTab(tabNum));
@@ -62,7 +62,7 @@ const TimerBox = () => {
   }, [shortBreakCount, settingsSlice, notifAudio, changeTabHandler, start]);
 
   useEffect(() => {
-    if (tabs[activeTab].time * 60 - time < 1) {
+    if (tabs[activeTab].time - time < 1) {
       finishHandler();
     }
   }, [time, tabs, activeTab, finishHandler]);
@@ -75,12 +75,11 @@ const TimerBox = () => {
     }
   };
 
-  const timerNum = new Date((tabs[activeTab].time * 60 - time) * 1000)
+  const timerNum = new Date((tabs[activeTab].time - uiSlice.curTime) * 1000)
     .toISOString()
     .slice(14, 19);
 
-  const progress =
-    status === "RUNNING" ? time / (tabs[activeTab].time * 60) : 0;
+  const progress = status === "RUNNING" ? time / tabs[activeTab].time : 0;
 
   return (
     <>
