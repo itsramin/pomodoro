@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../store/uiSlice";
 import ProgressBar from "./ProgressBar";
@@ -6,6 +6,7 @@ import styles from "./TimerBox.module.css";
 import notif from "../../media/notif.wav";
 import { MdFlag, MdPause, MdPlayArrow } from "react-icons/md";
 import { useTimer } from "use-timer";
+import PrimaryButton from "../UI/PrimaryButton";
 
 const TimerBox = () => {
   const dispatch = useDispatch();
@@ -19,39 +20,56 @@ const TimerBox = () => {
   const tabs = useMemo(() => {
     return [
       { name: "Pomodoro", time: +settingsSlice.pomodoro * 60 },
-      // { name: "Short Break", time: 0.1 },
+      // { name: "Pomodoro", time: 2 },
+      // { name: "Short Break", time: 2 },
       { name: "Short Break", time: +settingsSlice.shortBreak * 60 },
       { name: "Long Break", time: +settingsSlice.longBreak * 60 },
+      // { name: "Long Break", time: 2 },
     ];
   }, [settingsSlice]);
 
   const { time, start, pause, reset, status } = useTimer({
     initialTime: uiSlice.curTime,
+    endTime: tabs[activeTab].time,
+    onTimeOver: () => {
+      finishHandler("auto");
+    },
     onTimeUpdate: () => {
       dispatch(uiActions.setCurTime(time));
     },
   });
 
-  const changeTabHandler = useCallback(
-    (tabNum) => {
-      if (tabNum !== activeTab) {
-        reset();
-        dispatch(uiActions.setCurTime(0));
+  function changeTabHandler(tabNum) {
+    if (tabNum !== activeTab) {
+      // reset timer
+      reset();
 
-        setActiveTab(tabNum);
-        dispatch(uiActions.changeTab(tabNum));
-      }
-    },
-    [activeTab, dispatch, reset]
-  );
+      // change tab and save
+      setActiveTab(tabNum);
+      dispatch(uiActions.changeTab(tabNum));
 
-  const finishHandler = useCallback(() => {
-    setShortBreakCount((prev) => prev + 1);
+      // save cur time to 0
+      dispatch(uiActions.setCurTime(0));
+
+      // for refresh timer
+      start();
+      pause();
+    }
+  }
+
+  function finishHandler(status) {
+    if (activeTab === 0) {
+      const add = status === "auto" ? 0.5 : 1;
+      setShortBreakCount((prev) => prev + add);
+    } else if (activeTab === 2) {
+      setShortBreakCount(0);
+    }
+
     if (!settingsSlice.muteNotif) {
       notifAudio.play();
     }
     if (shortBreakCount !== settingsSlice.longBreakInterval) {
-      changeTabHandler(1);
+      changeTabHandler(activeTab === 0 ? 1 : 0);
     } else {
       changeTabHandler(2);
       setShortBreakCount(0);
@@ -59,13 +77,7 @@ const TimerBox = () => {
     if (settingsSlice.autoStart) {
       start();
     }
-  }, [shortBreakCount, settingsSlice, notifAudio, changeTabHandler, start]);
-
-  useEffect(() => {
-    if (tabs[activeTab].time - time < 1) {
-      finishHandler();
-    }
-  }, [time, tabs, activeTab, finishHandler]);
+  }
 
   const startHandler = () => {
     if (status === "RUNNING") {
@@ -75,7 +87,7 @@ const TimerBox = () => {
     }
   };
 
-  const timerNum = new Date((tabs[activeTab].time - uiSlice.curTime) * 1000)
+  const timerNum = new Date((tabs[activeTab].time - time) * 1000)
     .toISOString()
     .slice(14, 19);
 
@@ -112,6 +124,16 @@ const TimerBox = () => {
             </div>
           )}
         </div>
+      </div>
+      <div className={styles["short-break__Box"]}>
+        <div className={styles["short-break__title"]}>
+          Short Breaks : {shortBreakCount}
+        </div>
+        <PrimaryButton
+          title="Reset"
+          onClick={() => setShortBreakCount(0)}
+          icon="reset"
+        />
       </div>
     </>
   );

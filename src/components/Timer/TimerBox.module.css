@@ -57,6 +57,20 @@
   background-color: var(--color-grey-1);
   border-radius: 5px;
 }
+
+.short-break__Box {
+  color: var(--color-text-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  user-select: none;
+}
+.short-break__title {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
 @media (max-width: 600px) {
   .timerBox {
     padding: 1rem;

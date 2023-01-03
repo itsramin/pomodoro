@@ -16,6 +16,7 @@ function App() {
       <main>
         <MainHeader />
         <TimerBox />
+
         {ui.settingsVisible && <Settings />}
       </main>
     </div>
