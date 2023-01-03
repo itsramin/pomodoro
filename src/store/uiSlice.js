@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   settingsVisible: false,
   currentTab: 0,
+  curTime: null,
 };
 
 const uiSlice = createSlice({
@@ -14,6 +15,9 @@ const uiSlice = createSlice({
     },
     changeTab(state, action) {
       state.currentTab = action.payload;
+    },
+    setCurTime(state, action) {
+      state.curTime = action.payload;
     },
   },
 });
