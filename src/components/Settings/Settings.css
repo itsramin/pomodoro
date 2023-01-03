@@ -21,10 +21,11 @@
 
 .option__box {
   padding: 15px 0;
-}
-.option__box:not(:last-child) {
   border-bottom: 1px solid var(--color-grey-1);
 }
+/* .option__box:not(:last-child) {
+  border-bottom: 1px solid var(--color-grey-1);
+} */
 
 .option__title {
   color: var(--color-text-3);

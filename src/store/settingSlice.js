@@ -18,6 +18,11 @@ const settingsSlice = createSlice({
         state[item] = +action.payload[item];
       }
     },
+    resetDefaults(state) {
+      for (let item in initialState) {
+        state[item] = +initialState[item];
+      }
+    },
   },
 });
 
