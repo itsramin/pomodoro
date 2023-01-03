@@ -21,6 +21,7 @@ const MainHeader = () => {
           title="Settings"
           onClick={settingsHandler}
           icon="settings"
+          resize={true}
         />
       </div>
     </header>

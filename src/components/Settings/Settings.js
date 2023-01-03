@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { settingsActions } from "../../store/settingSlice";
@@ -26,7 +26,6 @@ const Settings = () => {
   const [autoStart, setAutoStart] = useState(settingsState.autoStart);
   const [muteNotif, setMuteNotif] = useState(settingsState.muteNotif);
   const [error, setError] = useState(false);
-  // const [reload, setReload] = useState(false);
 
   const closeModalHandler = () => {
     dispatch(uiActions.toggleSettings());
@@ -53,10 +52,6 @@ const Settings = () => {
   const muteNotifChangeHandler = () => {
     setMuteNotif((prev) => !prev);
   };
-
-  // useEffect(() => {
-  //   console.log(reload);
-  // }, [reload]);
 
   const saveHandler = () => {
     if (longBreakInterval < 1) {

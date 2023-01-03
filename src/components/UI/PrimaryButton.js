@@ -4,12 +4,14 @@ const PrimaryButton = ({
   title,
   onClick,
   icon,
+  resize = false,
   bgColor = undefined,
   textColor = undefined,
 }) => {
+  const btnClass = `${styles.btn} ${resize && styles.resize}`;
   return (
     <div
-      className={styles.btn}
+      className={btnClass}
       onClick={onClick}
       style={{ backgroundColor: bgColor, color: textColor }}
     >

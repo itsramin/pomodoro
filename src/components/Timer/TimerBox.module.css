@@ -89,7 +89,7 @@
     flex-direction: column;
   }
   .timer {
-    font-size: 5rem;
+    font-size: 6rem;
   }
   .btn {
     padding: 0.6rem 1.5rem 0.6rem 1rem;
@@ -103,5 +103,11 @@
   }
   .buttons {
     flex-direction: column;
+  }
+}
+@media (max-width: 270px) {
+  .short-break__Box {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

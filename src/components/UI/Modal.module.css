@@ -13,9 +13,8 @@
   top: 50%;
   left: 50%;
   width: 400px;
-  /* height: 300px; */
-  /* max-height: 100vh; */
-
+  overflow-y: scroll;
+  max-height: 90%;
   background-color: var(--color-white);
   padding: 1.5rem;
   border-radius: 14px;
@@ -27,8 +26,6 @@
 @media (max-width: 430px) {
   .modal {
     width: 95%;
-    max-height: 90%;
-    overflow-y: scroll;
     padding: 1rem;
     border-radius: 5px;
   }
