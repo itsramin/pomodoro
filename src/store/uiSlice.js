@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   settingsVisible: false,
+  reportVisible: false,
   currentTab: 0,
   curTime: 0,
 };
@@ -18,6 +19,9 @@ const uiSlice = createSlice({
     },
     setCurTime(state, action) {
       state.curTime = action.payload;
+    },
+    toggleReport(state) {
+      state.reportVisible = !state.reportVisible;
     },
   },
 });

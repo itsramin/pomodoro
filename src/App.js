@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import "./App.css";
 import MainHeader from "./components/header/MainHeader";
+import Reports from "./components/Reports/Reports";
 import Settings from "./components/Settings/Settings";
 import TimerBox from "./components/Timer/TimerBox";
 import "./components/UI/Allcolors.css";
@@ -16,7 +17,7 @@ function App() {
       <main>
         <MainHeader />
         <TimerBox />
-
+        {ui.reportVisible && <Reports />}
         {ui.settingsVisible && <Settings />}
       </main>
     </div>

@@ -10,6 +10,9 @@ const MainHeader = () => {
   const settingsHandler = () => {
     dispatch(uiActions.toggleSettings());
   };
+  const reportHandler = () => {
+    dispatch(uiActions.toggleReport());
+  };
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -17,6 +20,12 @@ const MainHeader = () => {
         Pomodoro
       </div>
       <div className={styles.nav}>
+        <PrimaryButton
+          title="Reports"
+          onClick={reportHandler}
+          icon="reports"
+          resize={true}
+        />
         <PrimaryButton
           title="Settings"
           onClick={settingsHandler}

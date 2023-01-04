@@ -7,15 +7,18 @@ import notif from "../../media/notif.wav";
 import { MdFlag, MdPause, MdPlayArrow } from "react-icons/md";
 import { useTimer } from "use-timer";
 import PrimaryButton from "../UI/PrimaryButton";
+import { reportsActions } from "../../store/reportsSlice";
 
 const TimerBox = () => {
   const dispatch = useDispatch();
   const uiSlice = useSelector((state) => state.ui);
   const settingsSlice = useSelector((state) => state.settings);
+  const reportsSlice = useSelector((state) => state.reports);
 
   const notifAudio = useMemo(() => new Audio(notif), []);
   const [activeTab, setActiveTab] = useState(uiSlice.currentTab);
   const [shortBreakCount, setShortBreakCount] = useState(0);
+  const today = new Date().toISOString().slice(0, 10);
 
   const tabs = useMemo(() => {
     return [
@@ -36,6 +39,19 @@ const TimerBox = () => {
     },
     onTimeUpdate: () => {
       dispatch(uiActions.setCurTime(time));
+      if (activeTab === 0) {
+        if (reportsSlice.lastDate === today) {
+          dispatch(reportsActions.addExist({ date: today }));
+        } else {
+          dispatch(
+            reportsActions.addNew({
+              date: today,
+              time: time,
+              id: +new Date() + Math.random(),
+            })
+          );
+        }
+      }
     },
   });
 
