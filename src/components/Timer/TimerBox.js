@@ -33,6 +33,7 @@ const TimerBox = () => {
 
   const { time, start, pause, reset, status } = useTimer({
     initialTime: uiSlice.curTime,
+    // interval: 10,
     endTime: tabs[activeTab].time,
     onTimeOver: () => {
       finishHandler("auto");
