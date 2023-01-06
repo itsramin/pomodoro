@@ -29,3 +29,8 @@
     padding: 0.6rem 0;
   }
 }
+@media (max-width: 330px) {
+  .nav {
+    gap: 8px;
+  }
+}

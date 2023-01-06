@@ -19,3 +19,8 @@ main {
     padding: 0 1rem;
   }
 }
+@media (max-width: 330px) {
+  main {
+    padding: 0 8px;
+  }
+}

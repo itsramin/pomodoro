@@ -84,9 +84,15 @@
 @media (max-width: 470px) {
   .timerBox {
     gap: 1rem;
+    padding: 1rem 6px;
   }
   .timerTabs {
-    flex-direction: column;
+    /* flex-direction: column; */
+    gap: 5px;
+  }
+  .tab {
+    padding: 8px 10px;
+    font-size: 0.8rem;
   }
   .timer {
     font-size: 6rem;
@@ -98,6 +104,9 @@
   }
 }
 @media (max-width: 330px) {
+  .tab {
+    padding: 5px 6px;
+  }
   .timer {
     font-size: 4rem;
   }
