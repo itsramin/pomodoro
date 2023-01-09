@@ -14,6 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { dateFormat } from "../../helper/helper";
+import ReportRow from "./ReportRow";
 
 const Reports = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const Reports = () => {
         minute: "2-digit",
         hour12: false,
       }),
-      id: i,
+      id: item.id,
     };
   });
 
@@ -61,6 +62,7 @@ const Reports = () => {
   ];
 
   const [activeTab, setACtiveTab] = useState(0);
+  const [error, setError] = useState(false);
 
   const closeModalHandler = () => {
     dispatch(uiActions.toggleReport());
@@ -73,13 +75,21 @@ const Reports = () => {
     const targetNum = e.target.dataset.num;
     setACtiveTab(+targetNum);
   };
+  const errorHandler = (state) => {
+    setError(state);
+  };
+
+  // console.log(reportsSlice.data);
 
   reportsSlice.data.forEach((item) => {
     const formattedDate = new Date(item.date);
+    // console.log(+formattedDate);
 
     const today = new Date();
     const todayWeekDay = today.getDay() + 1;
     const thisSat = +new Date(today.setDate(today.getDate() - todayWeekDay));
+
+    // console.log(new Date(thisSat));
 
     const thisYear = new Date().getFullYear();
 
@@ -146,6 +156,9 @@ const Reports = () => {
             Detailed
           </div>
         </div>
+        {error && (
+          <div className={"report__error"}>Please enter correct data.</div>
+        )}
         <div className={"reports__chart"}>
           {activeTab !== 2 && (
             <ResponsiveContainer height={250}>
@@ -168,19 +181,16 @@ const Reports = () => {
                 <div className={"header__col"}>Date</div>
                 <div className={"header__col"}>Time</div>
                 <div className={"header__col"}>Focus (min)</div>
+                <div className={"header__col"}>Edit</div>
               </div>
               <div className={"table__datas"}>
                 {detailData.map((item) => {
                   return (
-                    <div className={"table__row"} key={item.id}>
-                      <div className={"table__data"}>{item.date}</div>
-                      <div className={"table__data"}>{item.realTime}</div>
-                      <div className={"table__data"}>
-                        {new Date((item.time - 1) * 1000)
-                          .toISOString()
-                          .slice(14, 19)}
-                      </div>
-                    </div>
+                    <ReportRow
+                      item={item}
+                      key={item.id}
+                      onError={errorHandler}
+                    />
                   );
                 })}
               </div>

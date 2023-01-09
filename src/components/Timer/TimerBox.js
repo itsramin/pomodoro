@@ -33,7 +33,7 @@ const TimerBox = () => {
 
   const { time, start, pause, reset, status } = useTimer({
     // initialTime: initTime,
-    // interval: 10,
+    interval: 10,
   });
 
   const changeTabHandler = useCallback(

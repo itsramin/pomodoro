@@ -14,7 +14,6 @@ const reportsSlice = createSlice({
   initialState,
   reducers: {
     add(state, action) {
-      console.log("add in report slice");
       if (action.payload.time > 0) {
         state.data.push(action.payload);
         const dayDiff = Math.floor(
@@ -29,6 +28,13 @@ const reportsSlice = createSlice({
 
         state.lastDate = new Date().toLocaleString();
       }
+    },
+    update(state, action) {
+      console.log(action.payload.id);
+      const target = state.data.find((item) => item.id === action.payload.id);
+      // console.log(target);
+      target.date = action.payload.date;
+      target.time = action.payload.time;
     },
 
     reset(state) {

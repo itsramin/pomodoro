@@ -58,12 +58,54 @@
 .table__row {
   display: flex;
   justify-content: space-between;
-  color: var(--color-text-2);
-  margin: 3px 0;
+  color: var(--color-text-3);
+  height: 30px;
+  align-items: center;
+}
+.table__row--target input {
+  color: var(--color-text-1);
+}
+
+.table__row--target ::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.table__row--target {
+  background-color: var(--color-cyan-1);
+  color: var(--color-text-1) !important;
+}
+.table__error {
+  border-bottom: 1px solid var(--color-red-1);
 }
 .table__data {
   width: 33.33%;
   text-align: center;
+}
+.table__data--input {
+  width: 33.33%;
+  text-align: center;
+  border: none;
+  background-color: transparent;
+}
+.table__data--actions {
+  width: 33.33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.table__data--btn {
+  cursor: pointer;
+}
+.table__data--save {
+  color: var(--color-text-1);
+  padding-top: 4px;
+  font-size: 1.2rem;
+}
+.table__data--cancel {
+  color: var(--color-text-1);
+  padding-top: 4px;
+  font-size: 1.2rem;
 }
 .card__title {
   font-size: 0.9rem;
@@ -102,6 +144,9 @@
 .reports__chart {
   margin: 1rem 0;
   width: 100%;
+}
+.report__error {
+  color: var(--color-red-1);
 }
 @media (max-width: 350px) {
   .reports__cards {

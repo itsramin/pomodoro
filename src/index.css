@@ -7,6 +7,12 @@ body {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
+
+input {
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 0.95rem;
+}
 ::-webkit-scrollbar {
   width: 20px;
 }
