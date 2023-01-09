@@ -7,6 +7,7 @@ const initialState = {
   longBreakInterval: 3,
   autoStart: false,
   muteNotif: false,
+  curTime: 0,
 };
 
 const settingsSlice = createSlice({
@@ -22,6 +23,9 @@ const settingsSlice = createSlice({
       for (let item in initialState) {
         state[item] = +initialState[item];
       }
+    },
+    setCurTime(state, action) {
+      state.curTime = action.payload;
     },
   },
 });

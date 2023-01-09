@@ -4,7 +4,6 @@ const initialState = {
   settingsVisible: false,
   reportVisible: false,
   currentTab: 0,
-  curTime: 0,
 };
 
 const uiSlice = createSlice({
@@ -17,9 +16,7 @@ const uiSlice = createSlice({
     changeTab(state, action) {
       state.currentTab = action.payload;
     },
-    setCurTime(state, action) {
-      state.curTime = action.payload;
-    },
+
     toggleReport(state) {
       state.reportVisible = !state.reportVisible;
     },

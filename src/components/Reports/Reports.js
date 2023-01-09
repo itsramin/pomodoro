@@ -62,14 +62,12 @@ const Reports = () => {
 
   const [activeTab, setACtiveTab] = useState(0);
 
-  // console.log(reportsSlice.data);
-  // console.log(detailData);
   const closeModalHandler = () => {
     dispatch(uiActions.toggleReport());
   };
-  // const resetHandler = () => {
-  //   dispatch(reportsActions.resetToday());
-  // };
+  const resetHandler = () => {
+    dispatch(reportsActions.resetToday());
+  };
 
   const changePeriodHandler = (e) => {
     const targetNum = e.target.dataset.num;
@@ -118,7 +116,7 @@ const Reports = () => {
     <Modal closeModal={closeModalHandler}>
       <header className={"reports__header"}>
         <h2>Reports</h2>
-        {/* <MdResetTv onClick={resetHandler} /> */}
+        <MdResetTv onClick={resetHandler} />
 
         <MdClose
           className={"reports__icon--close"}

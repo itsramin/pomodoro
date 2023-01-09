@@ -6,36 +6,15 @@ const initialState = {
   streak: 0,
   lastDate: new Date(
     new Date().setDate(new Date().getDate() - 3)
-  ).toISOString(),
+  ).toLocaleString(),
 };
 
 const reportsSlice = createSlice({
   name: "reports",
   initialState,
   reducers: {
-    // addNew(state, action) {
-    //   state.data.push(action.payload);
-    //   console.log(
-    //     Math.ceil(
-    //       (+new Date() - +new Date(state.lastDate)) / (1000 * 24 * 60 * 60)
-    //     )
-    //   );
-    //   // if ()
-    //   state.lastDate = new Date().toISOString();
-    // },
-    // addExist(state, action) {
-    //   console.log(state.lastDate);
-    //   console.log(
-    //     Math.floor(
-    //       (+new Date() - +new Date(state.lastDate)) / (1000 * 24 * 60 * 60)
-    //     )
-    //   );
-    //   const target = state.data.find(
-    //     (item) => item.date === action.payload.date
-    //   );
-    //   target.time++;
-    // },
     add(state, action) {
+      console.log("add in report slice");
       if (action.payload.time > 0) {
         state.data.push(action.payload);
         const dayDiff = Math.floor(
@@ -48,34 +27,20 @@ const reportsSlice = createSlice({
           state.streak = 0;
         }
 
-        state.lastDate = new Date().toISOString();
+        state.lastDate = new Date().toLocaleString();
       }
     },
-    // add(state, action) {
-    //   const targetIndex = state.data.findIndex(
-    //     (item) => dateFormat(item.date) === dateFormat(action.payload.date)
-    //   );
 
-    //   if (targetIndex > -1) {
-    //     state.data[targetIndex].time =
-    //       state.data[targetIndex].time + action.payload.time;
-    //     console.log("exist");
-    //   } else {
-    //     console.log("new");
-    //     state.data.push(action.payload);
-    //     state.lastDate = new Date().toISOString();
-    //   }
-    // },
     reset(state) {
       state.data = [];
       state.lastDate = new Date(
         new Date().setDate(new Date().getDate() - 2)
-      ).toISOString();
+      ).toLocaleString();
     },
     resetToday(state) {
       state.lastDate = new Date(
         new Date().setDate(new Date().getDate() - 1)
-      ).toISOString();
+      ).toLocaleString();
       state.data = state.data.filter(
         (item) => dateFormat(item.date) !== dateFormat(new Date())
       );
