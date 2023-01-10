@@ -39,10 +39,13 @@
 .header__col {
   color: var(--color-text-3);
   font-weight: bold;
-  text-align: center;
   width: 33.33%;
   user-select: none;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .table__header {
   display: flex;
