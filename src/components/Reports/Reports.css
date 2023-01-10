@@ -41,6 +41,8 @@
   font-weight: bold;
   text-align: center;
   width: 33.33%;
+  user-select: none;
+  cursor: pointer;
 }
 .table__header {
   display: flex;

@@ -1,6 +1,5 @@
-import { MdClose, MdResetTv } from "react-icons/md";
+import { MdClose, MdSwapVert } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { reportsActions } from "../../store/reportsSlice";
 import { uiActions } from "../../store/uiSlice";
 import Modal from "../UI/Modal";
 import "./Reports.css";
@@ -18,6 +17,7 @@ import ReportRow from "./ReportRow";
 
 const Reports = () => {
   const dispatch = useDispatch();
+  const [sort, setSort] = useState(false);
   const weekData = [
     { date: "Sat", time: 0 },
     { date: "Sun", time: 0 },
@@ -42,18 +42,37 @@ const Reports = () => {
     { date: "Dec", time: 0 },
   ];
   const reportsSlice = useSelector((state) => state.reports);
-  const detailData = reportsSlice.data.map((item, i) => {
-    return {
-      date: dateFormat(item.date),
-      time: item.time,
-      realTime: new Date(item.date).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      }),
-      id: item.id,
-    };
-  });
+  const detailData = reportsSlice.data
+    .map((item) => {
+      return {
+        date: dateFormat(item.date),
+        time: item.time,
+        realTime: new Date(item.date).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }),
+        id: item.id,
+      };
+    })
+    .sort((a, b) => {
+      if (sort === "dateAz") return +new Date(b.date) - +new Date(a.date);
+      if (sort === "dateZa") return +new Date(a.date) - +new Date(b.date);
+      if (sort === "realTimeAz") {
+        const aTime = a.realTime.slice(0, 2) * 60 + +a.realTime.slice(3);
+        const bTime = b.realTime.slice(0, 2) * 60 + +b.realTime.slice(3);
+        return bTime - aTime;
+      }
+      if (sort === "realTimeZa") {
+        const aTime = a.realTime.slice(0, 2) * 60 + +a.realTime.slice(3);
+        const bTime = b.realTime.slice(0, 2) * 60 + +b.realTime.slice(3);
+        return aTime - bTime;
+      }
+      if (sort === "timeAz") return b.time - a.time;
+      if (sort === "timeZa") return a.time - b.time;
+
+      return +new Date(b.date) - +new Date(a.date);
+    });
 
   const periodArr = [
     { name: "weekly", data: weekData, total: 0 },
@@ -67,9 +86,12 @@ const Reports = () => {
   const closeModalHandler = () => {
     dispatch(uiActions.toggleReport());
   };
-  const resetHandler = () => {
-    dispatch(reportsActions.resetToday());
-  };
+  // const resetHandler = () => {
+  //   dispatch(reportsActions.resetToday());
+  // };
+  // const resetAllHandler = () => {
+  //   dispatch(reportsActions.reset());
+  // };
 
   const changePeriodHandler = (e) => {
     const targetNum = e.target.dataset.num;
@@ -79,17 +101,34 @@ const Reports = () => {
     setError(state);
   };
 
-  // console.log(reportsSlice.data);
+  const dateSortHandler = () => {
+    if (sort === "dateAz") {
+      setSort("dateZa");
+    } else {
+      setSort("dateAz");
+    }
+  };
+  const realTimeSortHandler = () => {
+    if (sort === "realTimeAz") {
+      setSort("realTimeZa");
+    } else {
+      setSort("realTimeAz");
+    }
+  };
+  const timeSortHandler = () => {
+    if (sort === "timeAz") {
+      setSort("timeZa");
+    } else {
+      setSort("timeAz");
+    }
+  };
 
   reportsSlice.data.forEach((item) => {
     const formattedDate = new Date(item.date);
-    // console.log(+formattedDate);
 
     const today = new Date();
     const todayWeekDay = today.getDay() + 1;
     const thisSat = +new Date(today.setDate(today.getDate() - todayWeekDay));
-
-    // console.log(new Date(thisSat));
 
     const thisYear = new Date().getFullYear();
 
@@ -126,7 +165,9 @@ const Reports = () => {
     <Modal closeModal={closeModalHandler}>
       <header className={"reports__header"}>
         <h2>Reports</h2>
-        <MdResetTv onClick={resetHandler} />
+        {/* <div onClick={resetHandler} >reset</div> */}
+
+        {/* <div onClick={resetAllHandler} >reset All</div> */}
 
         <MdClose
           className={"reports__icon--close"}
@@ -178,9 +219,15 @@ const Reports = () => {
           {activeTab === 2 && (
             <div className={"reports__table"}>
               <div className={"table__header"}>
-                <div className={"header__col"}>Date</div>
-                <div className={"header__col"}>Time</div>
-                <div className={"header__col"}>Focus (min)</div>
+                <div className={"header__col"} onClick={dateSortHandler}>
+                  Date <MdSwapVert />
+                </div>
+                <div className={"header__col"} onClick={realTimeSortHandler}>
+                  Time <MdSwapVert />
+                </div>
+                <div className={"header__col"} onClick={timeSortHandler}>
+                  Focus (min) <MdSwapVert />
+                </div>
                 <div className={"header__col"}>Edit</div>
               </div>
               <div className={"table__datas"}>

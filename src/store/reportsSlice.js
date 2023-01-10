@@ -32,9 +32,13 @@ const reportsSlice = createSlice({
     update(state, action) {
       console.log(action.payload.id);
       const target = state.data.find((item) => item.id === action.payload.id);
-      // console.log(target);
+
       target.date = action.payload.date;
       target.time = action.payload.time;
+    },
+
+    delete(state, action) {
+      state.data = state.data.filter((item) => item.id !== action.payload.id);
     },
 
     reset(state) {
@@ -42,6 +46,7 @@ const reportsSlice = createSlice({
       state.lastDate = new Date(
         new Date().setDate(new Date().getDate() - 2)
       ).toLocaleString();
+      state.streak = 0;
     },
     resetToday(state) {
       state.lastDate = new Date(
